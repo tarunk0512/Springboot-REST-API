@@ -1,6 +1,7 @@
 package com.stark.dev.stark.controller;
 
 import com.stark.dev.stark.dto.BookDTO;
+import com.stark.dev.stark.entity.Book;
 import com.stark.dev.stark.service.BookService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,7 @@ public class BookController {
     }
 
     @GetMapping
-    public Page<BookDTO> getAll(
+    public Page<Book> getAll(
             @RequestParam(required = false) String author,
             @RequestParam(required = false) String title,
             Pageable pageable

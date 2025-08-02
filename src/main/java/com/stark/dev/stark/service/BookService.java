@@ -25,15 +25,16 @@ public class BookService {
         return mapper.toDto(book);
     }
 
-    public Page<BookDTO> getAll(String author, String title, Pageable pageable) {
+    public Page<Book> getAll(String author, String title, Pageable pageable) {
         Specification<Book> spec = (root, query, cb) -> cb.conjunction(); // always true
 
         if (author != null) spec = spec.and(BookSpecifications.hasAuthor(author));
         if (title != null) spec = spec.and(BookSpecifications.hasTitleContaining(title));
-
+        log.info(spec.toString());
         Page<Book> page = bookRepository.findAll(spec, pageable);
         log.info(bookRepository.findAll(spec).toString());
-        return page.map(mapper::toDto);
+        return page;
+        //return page.map(mapper::toDto);
     }
 
     public BookDTO create(BookDTO dto) {
